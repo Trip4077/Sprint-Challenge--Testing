@@ -62,5 +62,14 @@ describe('SERVER', () => {
 
             expect(res.status).toBe(422);
         });
+
+        it('should return status 201 if successful', async () => {
+            const game = { title: 'Civ V', genre: 'strategy', releaseYear: 2013 }
+
+            const res = await request(server).post('/games')
+                                             .send(game);
+
+            expect(res.status).toEqual(201);
+        });
     });
 });
