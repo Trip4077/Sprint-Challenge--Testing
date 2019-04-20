@@ -9,4 +9,15 @@ describe('GAMES', () => {
             expect(games).toEqual([]);
         });
     });
+
+    describe('insert()', () => {
+        it('should insert a game into the db', async () => {
+            await Games.insert({ title: 'Civ V', genre: 'strategy', releaseYear: 2013 });
+
+            const games = await Games.getAll();
+
+            expect(games.length).toBe(1);
+            expect(games[0].title).toBe('Civ V');
+        });
+    });
 });
