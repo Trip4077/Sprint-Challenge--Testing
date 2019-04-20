@@ -16,10 +16,15 @@ server.get('/games', async (req, res) => {
 });
 
 server.post('/games', async (req, res) => {
-    console.log(req.body)
-    const added = await Games.insert(req.body);
-    console.log('added', added);
-    res.status(201).json(added);
+    const game = req.body;
+    
+    if(!game.title || !game.genre || !game.releaseYear) {
+        res.status(422).json({ err: 'Missing Info' });
+    } else {
+        const added = await Games.insert(game);
+
+        res.status(201).json(added);
+    }
 });
 
 module.exports = server;
