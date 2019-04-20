@@ -41,4 +41,26 @@ describe('SERVER', () => {
             expect(res.type).toBe('application/json');
         });
     });
+
+    describe('POST /games', async () => {
+        it('should add game to db', async () => {
+            const game = { title: 'Civ V', genre: 'strategy', releaseYear: 2013 }
+
+            const res = await request(server).post('/games')
+                                             .send(game);
+    
+            game.id = 1;
+
+            expect(res.body).toEqual(game);
+        });
+
+        it('should return status 422 if missing information', async () => {
+            const game = { genre: 'strategy', releaseYear: 2014 }
+
+            const res = await request(server).post('/games')
+                                             .send(game);
+
+            expect(res.status).toBe(422);
+        });
+    });
 });
