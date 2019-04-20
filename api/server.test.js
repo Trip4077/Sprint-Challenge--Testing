@@ -23,10 +23,22 @@ describe('SERVER', () => {
     });
 
     describe('GET /games', () => {
-        it('should return an empty array when the db is empty', async () => {
+        it('should return an array', async () => {
             const res = await request(server).get('/games');
 
-            expect(res.body).toEqual([]);
+            expect(typeof res.body).toBe('object');
+        });
+
+        it('should return status 200 OK', async () => {
+            const res = await request(server).get('/games');
+
+            expect(res.status).toBe(200);
+        });
+
+        it('should return a json packet', async () => {
+            const res = await request(server).get('/games');
+
+            expect(res.type).toBe('application/json');
         });
     });
 });
