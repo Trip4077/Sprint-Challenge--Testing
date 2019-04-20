@@ -21,4 +21,12 @@ describe('SERVER', () => {
             expect(port).not.toBe(undefined);
         });
     });
+
+    describe('GET /games', () => {
+        it('should return an empty array when the db is empty', async () => {
+            const res = await request(server).get('/games');
+
+            expect(res.body).toEqual([]);
+        });
+    });
 });
